@@ -1,0 +1,102 @@
+бд называется spring
+
+create table department
+(
+    id      bigint auto_increment
+        primary key,
+    name    varchar(225) null,
+    address varchar(225) null,
+    number  varchar(225) null
+)
+    charset = utf8mb4;
+
+create table employee
+(
+    id                bigint       not null
+        primary key,
+    bank              varchar(255) null,
+    bank_account      varchar(255) null,
+    date_fire         varchar(15)  null,
+    date_hire         varchar(15)  null,
+    department        varchar(255) null,
+    insurance_account varchar(255) null,
+    kids              int          not null,
+    name              varchar(255) null,
+    nationality       varchar(255) null,
+    patronymic        varchar(255) null,
+    position          varchar(255) null,
+    surname           varchar(255) null
+);
+
+create table hibernate_sequence
+(
+    next_val bigint null
+);
+
+create table position
+(
+    id     bigint       not null
+        primary key,
+    name   varchar(255) null,
+    salary int          not null
+);
+
+create table t_role
+(
+    id   bigint       not null
+        primary key,
+    name varchar(255) null
+)
+    engine = MyISAM;
+
+create table t_user
+(
+    id       bigint auto_increment
+        primary key,
+    password varchar(255) null,
+    username varchar(255) null
+)
+    engine = MyISAM;
+
+create table t_user_roles
+(
+    user_id  bigint not null,
+    roles_id bigint not null,
+    primary key (user_id, roles_id)
+)
+    engine = MyISAM;
+
+create index FKj47yp3hhtsoajht9793tbdrp4
+    on t_user_roles (roles_id);
+
+create table usr
+(
+    id       bigint       not null
+        primary key,
+    active   bit          not null,
+    password varchar(255) null,
+    username varchar(255) null
+);
+
+create table post
+(
+    id        bigint       not null
+        primary key,
+    anons     varchar(255) null,
+    full_text varchar(255) null,
+    title     varchar(255) null,
+    views     int          not null,
+    user      tinyblob     null,
+    user_id   bigint       null,
+    constraint FKrm2u0ujvvi9euawhsm1km29m4
+        foreign key (user_id) references usr (id)
+);
+
+create table usr_role
+(
+    usr_id bigint       not null,
+    roles  varchar(255) null,
+    constraint FK9ffk6ts9njcytrt8ft17fvr3p
+        foreign key (usr_id) references usr (id)
+);
+
